@@ -1,45 +1,125 @@
-# Customer Review Sentiment Classification (NLP + Naive Bayes)
+# Customer Review Sentiment Classifier
 
-Reads a customer review and predicts **Positive** or **Negative**.
+A machine learning and Natural Language Processing (NLP) project that classifies customer reviews into **Positive** and **Negative** sentiments using TF-IDF vectorization and a Multinomial Naive Bayes classifier.
 
-**Pipeline:** Review → Text cleaning → TF-IDF (unigrams + bigrams) → Multinomial Naive Bayes → Prediction
+The project includes an interactive Streamlit web application for analyzing individual reviews and processing multiple reviews from a CSV file.
 
-## Project structure
+## Features
+
+- Single customer review sentiment prediction
+- Bulk sentiment analysis using CSV uploads
+- Positive and Negative sentiment classification
+- Prediction confidence scores and probability charts
+- Sentiment distribution visualization for bulk predictions
+- Downloadable CSV files containing prediction results
+- Synthetic demo dataset generation for experimentation
+- Command-line sentiment prediction
+
+## Technologies Used
+
+- Python
+- Natural Language Processing (NLP)
+- Machine Learning
+- TF-IDF Vectorization
+- Multinomial Naive Bayes
+- Pandas
+- Scikit-learn
+- Streamlit
+- Joblib
+
+## Project Structure
+
+```text
+customer-review-sentiment-classifier/
+├── app.py
+├── predict.py
+├── generate_dataset.py
+├── preprocess.py
+├── train.py
+├── requirements.txt
+├── README.md
+├── data/
+│   └── reviews.csv
+└── models/
+    └── sentiment_model.joblib
 ```
-generate_dataset.py   creates demo data/reviews.csv
-preprocess.py         text cleaning (shared by training & prediction)
-train.py              trains, evaluates, saves model + charts
-predict.py            command-line predictions
-app.py                Streamlit web app
-data/  models/  outputs/
+
+Note: `preprocess.py`, `train.py`, `requirements.txt`, the dataset, and the trained model are expected project files. Add them only when you have created or obtained the corresponding files.
+
+## Installation and Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR-USERNAME/customer-review-sentiment-classifier.git
+cd customer-review-sentiment-classifier
 ```
 
-## Run it
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
 ```bash
 pip install -r requirements.txt
-python generate_dataset.py     # (skip if you use your own dataset)
-python train.py                # prints metrics, saves model + charts
-python predict.py "I love this phone"
-streamlit run app.py           # web app
 ```
 
-## Using a real dataset (recommended)
-The bundled data is **synthetic and template-based**, so accuracy is unrealistically high.
-For real results, download the [IMDb reviews dataset](https://ai.stanford.edu/~amaas/data/sentiment/)
-or a product-review dataset, convert it to a CSV with columns `review,sentiment`
-(values `Positive`/`Negative`), and save it as `data/reviews.csv`. Then re-run `python train.py`.
+### 4. Prepare the dataset and model
 
-## Design choices
-- **Negation kept:** stop-words like "not" are NOT removed, so "not good" stays negative.
-- **Bigrams:** `ngram_range=(1,2)` lets the model learn phrases like "not good".
-- **Evaluation:** accuracy, 5-fold cross-validation, precision/recall/F1, confusion matrix.
+Generate the synthetic demo dataset:
 
-## Resume summary
-Developed a sentiment classification system using Python and NLP to categorize customer
-reviews as positive or negative. Used Pandas for data handling, TF-IDF for feature extraction,
-and Multinomial Naive Bayes for training; evaluated with accuracy, precision, recall, F1 and a
-confusion matrix; built a Streamlit app for single and bulk-CSV predictions.
+```bash
+python generate_dataset.py
+```
 
-## Ideas to extend
-Compare with Logistic Regression / Linear SVM, add a Neutral class, tune hyperparameters with
-GridSearchCV, deploy on Streamlit Community Cloud.
+Run the model training script to create the trained model file before launching the application.
+
+### 5. Launch the Streamlit app
+
+```bash
+streamlit run app.py
+```
+
+### 6. Run command-line predictions
+
+```bash
+python predict.py "The product is amazing and works perfectly"
+```
+
+## Dataset
+
+The supplied dataset-generation script creates synthetic customer reviews using predefined positive and negative templates. It is intended for learning and demonstrating the ML pipeline.
+
+**Important:** Synthetic template-based data can produce unrealistically high evaluation scores. Real-world performance should be evaluated using an independent, representative dataset.
+
+## Applications
+
+- Customer feedback analysis
+- Product review classification
+- Basic sentiment analysis demonstrations
+- Bulk review processing
+
+## Future Improvements
+
+- Support for neutral sentiment
+- Training and evaluation on real-world review datasets
+- Model performance metrics and confusion matrix
+- Improved handling of negation, sarcasm, and mixed sentiment
+- Deployment as a publicly accessible web application
+
+## Author
+
+Add your name and GitHub profile link here.
+
+## Disclaimer
+
+This is an educational machine learning project. Predictions are estimates and should not be treated as definitive interpretations of customer opinions.
